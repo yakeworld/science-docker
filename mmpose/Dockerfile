@@ -12,6 +12,12 @@ RUN cd mmpose
 RUN pip install -r requirements.txt  --proxy='socks5://172.18.0.12:1080'
 RUN pip install -v -e .
 
+## jupyter 支持主机端GUI
+RUN apt-get install libx11-dev -y
+RUN apt-get install libgl1 -y
+RUN pit install vedo
+
+
 
 
 
