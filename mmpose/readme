@@ -1,0 +1,17 @@
+
+docker network create --subnet=172.18.0.0/16 nlink
+docker container run -d --name mmpose   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix --ipc=host -it  --net nlink --ip 172.18.0.34    --gpus "device=0"  -v $HOME/work:/workspace nvcr.io/nvidia/pytorch:22.03-py3 /bin/bash -c 'jupyter notebook --no-browser --ip="*" '
+
+
+参数解释：
+-v /tmp/.X11-unix:/tmp/.X11-unix \           #共享本地unix端口
+-e DISPLAY=unix$DISPLAY \                    #修改环境变量DISPLAY
+--device=/dev/video0:/dev/video0    #是为了映射camer设备到镜像里
+--privileged #是为了获取访问camera权限 
+
+
+docker exec -it mmpose bash
+jupyter notebook password
+
+访问：
+http://172.18.0.34:8888 
